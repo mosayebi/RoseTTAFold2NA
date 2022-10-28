@@ -9,12 +9,14 @@ out_tag="$3"
 CPU="$4"
 MEM="$5"
 
+DBDIR=/nfs/groups_argus/machine_learning/active/mmosayebi/protein_DBs
+
 # databases
-db0="$PIPEDIR/RNA/Rfam.cm";
-db1="$PIPEDIR/RNA/rnacentral.fasta";
-db2="$PIPEDIR/RNA/nt";
-db0to1="$PIPEDIR/RNA/rfam_annotations.tsv.gz";
-db0to2="$PIPEDIR/RNA/Rfam.full_region.gz";
+db0="$DBDIR/RNA/Rfam.cm";
+db1="$DBDIR/RNA/rnacentral.fasta";
+db2="$DBDIR/RNA/nt";
+db0to1="$DBDIR/RNA/rfam_annotations.tsv.gz";
+db0to2="$DBDIR/RNA/Rfam.full_region.gz";
 
 max_aln_seqs=50000
 max_target_seqs=50000

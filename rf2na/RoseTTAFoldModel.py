@@ -1,10 +1,9 @@
 import torch
 import torch.nn as nn
-from Embeddings import MSA_emb, Extra_emb, Templ_emb, Recycling
-from Track_module import IterativeSimulator
-from AuxiliaryPredictor import DistanceNetwork, MaskedTokenNetwork, LDDTNetwork, PAENetwork
-
-from chemical import INIT_CRDS,NAATOKENS
+from .Embeddings import MSA_emb, Extra_emb, Templ_emb, Recycling
+from .Track_module import IterativeSimulator
+from .AuxiliaryPredictor import DistanceNetwork, MaskedTokenNetwork, LDDTNetwork, PAENetwork
+from .chemical import INIT_CRDS,NAATOKENS
 
 class RoseTTAFoldModule(nn.Module):
     def __init__(

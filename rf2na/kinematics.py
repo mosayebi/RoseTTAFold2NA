@@ -1,7 +1,7 @@
 import numpy as np
 import torch
-from util import INIT_CRDS, INIT_NA_CRDS, generate_Cbeta, is_nucleic
-from chemical import NTOTAL
+from .util import INIT_CRDS, INIT_NA_CRDS, generate_Cbeta, is_nucleic
+from .chemical import NTOTAL
 
 PARAMS = {
     "DMIN"    : 2.0,

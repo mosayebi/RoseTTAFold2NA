@@ -1,13 +1,13 @@
 import torch
 import numpy as np
 
-from util import (
+from .util import (
     rigid_from_3_points,
     is_nucleic
 )
 
-from kinematics import get_dih, get_ang
-from scoring import HbHybType
+from .kinematics import get_dih, get_ang
+from .scoring import HbHybType
 
 # Loss functions for the training
 # 1. BB rmsd loss

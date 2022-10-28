@@ -9,9 +9,11 @@ tag="$3"
 CPU="$4"
 MEM="$5"
 
+DBDIR=/nfs/groups_argus/machine_learning/active/mmosayebi/protein_DBs
+
 # sequence databases
-DB_UR30="$PIPEDIR/UniRef30_2020_06/UniRef30_2020_06"
-DB_BFD="$PIPEDIR/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt"
+DB_UR30="$DBDIR/UniRef30_2020_06/UniRef30_2020_06"
+DB_BFD="$DBDIR/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt"
 
 # setup hhblits command
 HHBLITS_UR30="hhblits -o /dev/null -mact 0.35 -maxfilt 100000000 -neffmax 20 -cov 25 -cpu $CPU -nodiff -realign_max 100000000 -maxseq 1000000 -maxmem $MEM -n 4 -d $DB_UR30"

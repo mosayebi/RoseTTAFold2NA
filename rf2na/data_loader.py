@@ -4,8 +4,8 @@ import os
 import csv
 from dateutil import parser
 import numpy as np
-from parsers import parse_a3m, parse_pdb, parse_fasta_if_exists
-from chemical import INIT_CRDS, INIT_NA_CRDS, NAATOKENS, MASKINDEX, NTOTAL
+from .parsers import parse_a3m, parse_pdb, parse_fasta_if_exists
+from .chemical import INIT_CRDS, INIT_NA_CRDS, NAATOKENS, MASKINDEX, NTOTAL
 import pickle
 import random
 

@@ -4,15 +4,16 @@ import numpy as np
 import torch
 import torch.nn as nn
 from torch.utils import data
-from parsers import parse_a3m, parse_fasta, read_template_pdb, parse_pdb_w_seq, read_templates
-from RoseTTAFoldModel  import RoseTTAFoldModule
-import util
 from collections import namedtuple
-from ffindex import *
-from data_loader import MSAFeaturize, MSABlockDeletion, merge_a3m_homo, merge_a3m_hetero
-from kinematics import xyz_to_c6d, c6d_to_bins, xyz_to_t2d, get_init_xyz
-from util_module import ComputeAllAtomCoords
-from chemical import NTOTAL, NTOTALDOFS, NAATOKENS
+
+from .parsers import parse_a3m, parse_fasta, read_template_pdb, parse_pdb_w_seq, read_templates
+from .RoseTTAFoldModel  import RoseTTAFoldModule
+from .util import *
+from .ffindex import *
+from .data_loader import MSAFeaturize, MSABlockDeletion, merge_a3m_homo, merge_a3m_hetero
+from .kinematics import xyz_to_c6d, c6d_to_bins, xyz_to_t2d, get_init_xyz
+from .util_module import ComputeAllAtomCoords
+from .chemical import NTOTAL, NTOTALDOFS, NAATOKENS
 
 def get_args():
     import argparse
@@ -109,13 +110,13 @@ class Predictor():
         # define model & load model
         self.model = RoseTTAFoldModule(
             **MODEL_PARAM,
-            aamask=util.allatom_mask.to(self.device),
-            ljlk_parameters=util.ljlk_parameters.to(self.device),
-            lj_correction_parameters=util.lj_correction_parameters.to(self.device),
-            num_bonds=util.num_bonds.to(self.device),
-            hbtypes=util.hbtypes.to(self.device),
-            hbbaseatoms=util.hbbaseatoms.to(self.device),
-            hbpolys=util.hbpolys.to(self.device)
+            aamask=allatom_mask.to(self.device),
+            ljlk_parameters=ljlk_parameters.to(self.device),
+            lj_correction_parameters=lj_correction_parameters.to(self.device),
+            num_bonds=num_bonds.to(self.device),
+            hbtypes=hbtypes.to(self.device),
+            hbbaseatoms=hbbaseatoms.to(self.device),
+            hbpolys=hbpolys.to(self.device)
         ).to(self.device)
 
         could_load = self.load_model(self.model_weights)
@@ -204,12 +205,12 @@ class Predictor():
 
         xyz_t = get_init_xyz(msa_orig[0:1],xyz_t,same_chain) # initialize coordinates with first template
         seq_tmp = t1d[...,:-1].argmax(dim=-1).reshape(-1,L)
-        alpha, _, alpha_mask, _ = util.get_torsions(
+        alpha, _, alpha_mask, _ = get_torsions(
             xyz_t.reshape(-1,L,NTOTAL,3),
             seq_tmp,
-            util.torsion_indices,
-            util.torsion_can_flip,
-            util.reference_angles
+            torsion_indices,
+            torsion_can_flip,
+            reference_angles
         )
         alpha_mask = torch.logical_and(alpha_mask, ~torch.isnan(alpha[...,0]))
 
@@ -318,7 +319,7 @@ class Predictor():
         for prob in prob_s:
             prob += 1e-8
             prob = prob / torch.sum(prob, dim=0)[None]
-        util.writepdb(out_prefix+".pdb", best_xyz[0], seq[0, -1], bfacts=100*best_lddt[0].float())
+        writepdb(out_prefix+".pdb", best_xyz[0], seq[0, -1], bfacts=100*best_lddt[0].float())
         prob_s = [prob.permute(1,2,0).detach().cpu().numpy().astype(np.float16) for prob in prob_s]
         np.savez_compressed("%s.npz"%(out_prefix), 
             dist=prob_s[0].astype(np.float16), \

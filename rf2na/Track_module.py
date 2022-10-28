@@ -3,15 +3,16 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch import einsum
 import torch.utils.checkpoint as checkpoint
-from util_module import *
-from Attention_module import *
-from SE3_network import SE3TransformerWrapper
-from resnet import ResidualNetwork
-from util import INIT_CRDS
-from loss import (
+
+from .util_module import *
+from .Attention_module import *
+from .SE3_network import SE3TransformerWrapper
+from .resnet import ResidualNetwork
+from .util import INIT_CRDS
+from .loss import (
     calc_BB_bond_geom_grads, calc_lj_grads, calc_hb_grads
 )
-from chemical import NTOTALDOFS
+from .chemical import NTOTALDOFS
 
 # Components for three-track blocks
 # 1. MSA -> MSA update (biased attention. bias from pair & structure)

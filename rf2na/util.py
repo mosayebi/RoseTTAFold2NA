@@ -5,8 +5,8 @@ import torch
 
 import scipy.sparse
 
-from chemical import *
-from scoring import *
+from .chemical import *
+from .scoring import *
 
 
 def th_ang_v(ab,bc,eps:float=1e-8):

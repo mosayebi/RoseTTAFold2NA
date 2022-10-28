@@ -12,12 +12,16 @@ unset __conda_setup
 # <<< conda initialize <<<
 ############################################################
 
+DBDIR=/nfs/groups_argus/machine_learning/active/mmosayebi/protein_DBs
+
 SCRIPT=`realpath -s $0`
 export PIPEDIR=`dirname $SCRIPT`
-HHDB="$PIPEDIR/pdb100_2021Mar03/pdb100_2021Mar03"
+#HHDB="$PIPEDIR/pdb100_2021Mar03/pdb100_2021Mar03"
+HHDB="$DBDIR/pdb100_2021Mar03/pdb100_2021Mar03"
 
-CPU="8"  # number of CPUs to use
-MEM="64" # max memory (in GB)
+
+CPU="36"  # number of CPUs to use
+MEM="128" # max memory (in GB)
 
 WDIR=`realpath -s $1`  # working folder
 mkdir -p $WDIR/log
@@ -55,7 +59,7 @@ function proteinMSA {
     if [ ! -s $WDIR/$tag.hhr ]
     then
         echo "Running hhsearch"
-        HH="hhsearch -b 50 -B 500 -z 50 -Z 500 -mact 0.05 -cpu $CPU -maxmem $MEM -aliw 100000 -e 100 -p 5.0 -d $HHDB"
+        HH="hhsearch -b 50 -B 500 -z 50 -Z 500 -mact 0.05 -cpu $CPU -maxmem $MEM -aliw 100000 -e 100 -p 5.0 -d $HHDB "
         cat $WDIR/$tag.ss2 $WDIR/$tag.msa0.a3m > $WDIR/$tag.msa0.ss2.a3m
         $HH -i $WDIR/$tag.msa0.ss2.a3m -o $WDIR/$tag.hhr -atab $WDIR/$tag.atab -v 0 > $WDIR/log/hhsearch.$tag.stdout 2> $WDIR/log/hhsearch.$tag.stderr
     fi
@@ -104,11 +108,14 @@ done
 # 4. end-to-end prediction
 ############################################################
 echo "Running RoseTTAFold2NA to predict structures"
+echo
+echo $argstring
+echo
 mkdir -p $WDIR/models
 python $PIPEDIR/network/predict.py \
     -inputs $argstring \
     -prefix $WDIR/models/model \
-    -model $PIPEDIR/network/weights/RF2NA_sep22.pt \
+    -model $PIPEDIR/SE3Transformer/weights/RF2NA_sep22.pt \
     -db $HHDB #2> $WDIR/log/network.stderr #1> $WDIR/log/network.stdout 
 
 echo "Done"

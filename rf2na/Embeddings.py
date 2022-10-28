@@ -3,11 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch import einsum
 import torch.utils.checkpoint as checkpoint
-from util import *
-from util_module import Dropout, get_clones, create_custom_forward, rbf, init_lecun_normal
-from Attention_module import Attention, TriangleMultiplication, TriangleAttention, FeedForwardLayer
-from Track_module import PairStr2Pair
-from chemical import NAATOKENS,NTOTALDOFS
+from .util import *
+from .util_module import Dropout, get_clones, create_custom_forward, rbf, init_lecun_normal
+from .Attention_module import Attention, TriangleMultiplication, TriangleAttention, FeedForwardLayer
+from .Track_module import PairStr2Pair
+from .chemical import NAATOKENS,NTOTALDOFS
 
 # Module contains classes and functions to generate initial embeddings
 
