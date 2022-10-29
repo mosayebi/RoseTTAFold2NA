@@ -20,11 +20,13 @@ conda activate RF2NA
 cd SE3Transformer
 pip install --no-cache-dir -r requirements.txt
 python setup.py install
+cd ..
+pip install -e .
 ```
 
 3. Download pre-trained weights under network directory
 ```
-cd network
+cd rf2na
 wget https://files.ipd.uw.edu/dimaio/RF2NA_sep22.tgz
 tar xvfz RF2NA_sep22.tgz
 ls weights/ # it should contain a 800mb weights file
