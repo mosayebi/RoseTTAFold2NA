@@ -5,12 +5,11 @@ import string
 import os,re
 from os.path import exists
 import random
-import util
 import gzip
-from ffindex import *
 import torch
-from chemical import NAATOKENS, aa2num, aa2long, NTOTAL, NTOTALDOFS, NAATOKENS
-import chemical
+
+from rf2na.ffindex import *
+from rf2na.chemical import NAATOKENS, aa2num, aa2long, NTOTAL, NTOTALDOFS, NAATOKENS
 
 to1letter = {
     "ALA":'A', "ARG":'R', "ASN":'N', "ASP":'D', "CYS":'C',
@@ -287,7 +286,7 @@ def parse_pdb_lines_w_seq(lines):
                 offset = len(seq)
         prev_chain = line[21]
         aa = line[17:20]
-        seq.append(chemical.aa2num[aa] if aa in chemical.aa2num.keys() else 20)
+        seq.append(aa2num[aa] if aa in aa2num.keys() else 20)
     L_s.append(len(seq) - offset)
 
     # 4 BB + up to 10 SC atoms
