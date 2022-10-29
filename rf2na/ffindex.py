@@ -5,8 +5,6 @@
 Created on Apr 30, 2014
 @author: meiermark
 '''
-
-
 import sys
 import mmap
 from collections import namedtuple

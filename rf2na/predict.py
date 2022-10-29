@@ -6,14 +6,14 @@ import torch.nn as nn
 from torch.utils import data
 from collections import namedtuple
 
-from .parsers import parse_a3m, parse_fasta, read_template_pdb, parse_pdb_w_seq, read_templates
-from .RoseTTAFoldModel  import RoseTTAFoldModule
-from .util import *
-from .ffindex import *
-from .data_loader import MSAFeaturize, MSABlockDeletion, merge_a3m_homo, merge_a3m_hetero
-from .kinematics import xyz_to_c6d, c6d_to_bins, xyz_to_t2d, get_init_xyz
-from .util_module import ComputeAllAtomCoords
-from .chemical import NTOTAL, NTOTALDOFS, NAATOKENS
+from rf2na.parsers import parse_a3m, parse_fasta, read_template_pdb, parse_pdb_w_seq, read_templates
+from rf2na.RoseTTAFoldModel  import RoseTTAFoldModule
+from rf2na.util import *
+from rf2na.ffindex import *
+from rf2na.data_loader import MSAFeaturize, MSABlockDeletion, merge_a3m_homo, merge_a3m_hetero
+from rf2na.kinematics import xyz_to_c6d, c6d_to_bins, xyz_to_t2d, get_init_xyz
+from rf2na.util_module import ComputeAllAtomCoords
+from rf2na.chemical import NTOTAL, NTOTALDOFS, NAATOKENS
 
 def get_args():
     import argparse
@@ -87,7 +87,7 @@ def lddt_unbin(pred_lddt):
     nbin = pred_lddt.shape[1]
     bin_step = 1.0 / nbin
     lddt_bins = torch.linspace(bin_step, 1.0, nbin, dtype=pred_lddt.dtype, device=pred_lddt.device)
-    
+
     pred_lddt = nn.Softmax(dim=1)(pred_lddt)
     return torch.sum(lddt_bins[None,:,None]*pred_lddt, dim=1)
 

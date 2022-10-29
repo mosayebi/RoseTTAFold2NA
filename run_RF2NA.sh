@@ -112,10 +112,10 @@ echo
 echo $argstring
 echo
 mkdir -p $WDIR/models
-python $PIPEDIR/network/predict.py \
+python $PIPEDIR/rf2na/predict.py \
     -inputs $argstring \
     -prefix $WDIR/models/model \
-    -model $PIPEDIR/SE3Transformer/weights/RF2NA_sep22.pt \
+    -model $PIPEDIR/rf2na/weights/RF2NA_sep22.pt \
     -db $HHDB #2> $WDIR/log/network.stderr #1> $WDIR/log/network.stdout 
 
 echo "Done"

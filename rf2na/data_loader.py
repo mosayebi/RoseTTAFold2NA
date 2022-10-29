@@ -4,12 +4,13 @@ import os
 import csv
 from dateutil import parser
 import numpy as np
-from .parsers import parse_a3m, parse_pdb, parse_fasta_if_exists
-from .chemical import INIT_CRDS, INIT_NA_CRDS, NAATOKENS, MASKINDEX, NTOTAL
 import pickle
 import random
-
 from scipy.sparse.csgraph import shortest_path
+
+from rf2na.parsers import parse_a3m, parse_pdb, parse_fasta_if_exists
+from rf2na.chemical import INIT_CRDS, INIT_NA_CRDS, NAATOKENS, MASKINDEX, NTOTAL
+
 
 base_dir = "/projects/ml/TrRosetta/PDB-2021AUG02"
 compl_dir = "/projects/ml/RoseTTAComplex"

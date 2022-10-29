@@ -8,8 +8,8 @@ import random
 import gzip
 import torch
 
-from .ffindex import *
-from .chemical import NAATOKENS, aa2num, aa2long, NTOTAL, NTOTALDOFS, NAATOKENS
+from rf2na.ffindex import *
+from rf2na.chemical import NAATOKENS, aa2num, aa2long, NTOTAL, NTOTALDOFS, NAATOKENS
 
 to1letter = {
     "ALA":'A', "ARG":'R', "ASN":'N', "ASP":'D', "CYS":'C',
